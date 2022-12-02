@@ -1,4 +1,4 @@
-const {Database,Schema} = require("../../../lib/database");
+const {Database,Schema} = require("../../lib/database");
 
 const MotCleChapitreSchema = new Schema({
   id_chapitre:"string",
