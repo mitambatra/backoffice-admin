@@ -13,4 +13,11 @@ router.post("/article",require("../../controllers/DataController").getArticle)
 router.post("/login",require("../../controllers/ValidationController").login)
 router.post("/register",require("../../controllers/ValidationController").register)
 
+router.post("/paragraphe_delete",require("../../controllers/DataController").deleteParagraphe)
+router.post("/article_delete",require("../../controllers/DataController").deleteArticle)
+router.post("/chapitre_delete",require("../../controllers/DataController").deleteChapitre)
+router.post("/intitule_delete",require("../../controllers/DataController").deleteIntitule)
+
+
+
 module.exports = router

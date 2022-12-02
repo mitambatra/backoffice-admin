@@ -1,4 +1,8 @@
-class Data {
+const Intitule = require("../models/Intitule")
+const Chapitre = require("../models/Chapitre")
+const Article = require("../models/Article")
+const Paragraphe = require("../models/Paragraphe")
+class DataController {
   newData(req,res){
     const thematique = req.body.thematique;
     const type = req.body.type;
@@ -94,5 +98,89 @@ class Data {
       res.send("Data no Initulé set")
     }
   }
+
+  static removeChapitre(id_chapitre){
+      Chapitre.findAndDelete({_id:id_chapitre},(ok)=>{
+        if(ok){
+          const a = Article.findBy({id_chapitre:id_chapitre})
+          a.forEach(article => {
+            DataController.removeArticle(a._id)
+          });
+        }else{
+
+        }
+      })
+  }
+
+  static removeArticle(id_article){
+    Article.findAndDelete({_id:id_article},(ok)=>{
+      if(ok){
+        const a = Paragraphe.findBy({id_chapitre:id_chapitre})
+        a.forEach(p => {
+          DataController.removeParagraphe(p._id)
+        });
+      }else{
+
+      }
+    })
+  }
+
+  static removeParagraphe(paragraphe_id){
+    const Paragraphe = require("../models/Paragraphe");
+      Paragraphe.findAndDelete({_id:req.body.id_paragraphe},(success)=>{
+        if(success){res.json('deleted')}
+          else{res.json('error')}
+      })
+  }
+
+  static removeIntitule(id_intitule){
+    Intitule.findAndDelete({_id:id_intitule},(ok)=>{
+      if(ok){
+        const a = Chapitre.findBy({id_intitule:id_intitule})
+        a.forEach(chapitre => {
+          DataController.removeChapitre(chapitre)
+        });
+        
+        
+      }
+    })
+  }
+
+  deleteParagraphe(req, res){
+    if(req.body.id_paragraphe){
+      DataController.removeParagraphe(req.body.id_paragraphe)
+    }else{
+      res.status(404)
+    }
+  }
+
+  deleteChapitre(req, res){
+    if(req.body.id_chapitre){
+      
+      DataController.removeChapitre(req.body.id_chapitre)
+    }else{
+      res.json('not_ok')
+      res.status(404)
+    }
+  }
+
+  deleteArticle(req, res){
+    if(req.body.id_article){
+      DataController.removeArticle(req.body.id_article)
+    }else{
+      res.json('not_ok')
+      res.status(404)
+    }
+  }
+
+  deleteIntitule(req, res){
+    if(req.body.id_intitule){
+      DataController.removeIntitule(req.body.id_intitule)
+    }else{
+      res.json('not_ok')
+      res.status(404)
+    }
+  }
+
 }
-module.exports = new Data();
+module.exports = new DataController();
