@@ -1,9 +1,7 @@
 
 const router = require("express").Router()
 
-router.get("/",function(req,res){
-  res.json({message:"Hello world"})
-})
+router.post("/validate",require("../../controllers/ValidationController").validate)
 
 
 module.exports = router
