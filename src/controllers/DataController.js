@@ -11,27 +11,59 @@ class DataController {
     const article = req.body.article;
     const paragraphe = req.body.paragraphe;
     if(thematique && type && intitule && chapitre && article && paragraphe){
-      const id_thematique=""
+      const id_thematique=thematique.id_thematique;
+      const id_type = type.id_type;
+      const id_intitule = intitule.id_intitule
+      const id_chapitre = chapitre.id_chapitre
+      const id_article = article.id_article
       if(thematique.isNew){
           const Theme = require("../models/Thematique");
           if(thematique.titre){
             id_thematique = Theme.insert({titre:thematique.titre})._id
-        }else{
-          res.status(500)
-          res.send("not ok")
         }
 
+      }
+
+      if(type.isNew){
+        const Type = require("../models/Type")
+        id_type = Type.insert({nom:type.nom})._id
       }
     
       if(intitule.isNew){
-        const Intitule = require("../models/Intitule");
-        if(intitule.titre && intitule.id_thematique && intitule.id_type){
 
-        }else{
-          res.status(500)
-          res.send("not ok")
+        if(intitule.titre && intitule.id_thematique && intitule.id_type){
+            id_intitule = Intitule.insert({
+              titre:intitule.titre,
+              id_thematique:id_thematique,
+              id_type:id_type
+            })._id
         }
       }
+
+      if(chapitre.isNew){
+         if(chapitre.titre && id_intitule){
+          id_chapitre = Chapitre.insert({
+            titre:chapitre.titre,id_intitule:id_intitule
+          })._id
+         }if(chapitre.mot_cle){
+          const MotCle = require("../models/MotCle");
+          chapitre.mot_cle.forEach((item)=>{
+            MotCle.findBy({nom:item},function (mot) {
+              if(mot){
+                const MotCleChapitre = require("../models/MotCleChapitre")
+                mot[0]
+              }
+            })
+          })
+         }
+      }
+
+      if(article.isNew){
+        id_article = Article.insert({
+          titre:article.titre,id_chapitre:id_chapitre
+        })._id
+      }
+      Paragraphe.insert({paragraphe})
     }
 
   }
