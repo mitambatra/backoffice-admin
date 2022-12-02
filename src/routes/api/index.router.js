@@ -5,6 +5,7 @@ router.post("/validate",require("../../controllers/ValidationController").valida
 router.post("/get-history",require("../../controllers/ValidationController").getHistoryListe)
 router.post("/new-data",require("../../controllers/DataController").newData)
 router.post("/theme",require("../../controllers/DataController").getAllTheme)
+router.post("/type",require("../../controllers/DataController").getAllType)
 
 router.post("/login",require("../../controllers/ValidationController").login)
 router.post("/register",require("../../controllers/ValidationController").register)
