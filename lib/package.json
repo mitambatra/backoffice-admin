@@ -1,0 +1,17 @@
+{
+  "name": "lib",
+  "version": "1.0.0",
+  "description": "mini ORM for Oriented file database",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start":"node index.js"
+  },
+  "keywords": [
+    "database",
+    "orm",
+    "file"
+  ],
+  "author": "Shiro-cha",
+  "license": "ISC"
+}
