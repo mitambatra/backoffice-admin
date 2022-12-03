@@ -11,10 +11,14 @@ class ValidationController {
         git.init(function(){
           git.add(fileToAdd,function(){
             git.commit("new update",function(){
-              git.push(`https://${process.env.USERNAME}:${process.env.TOKEN}@${process.env.HOST}${process.env.REPOSISTORY}`,`${process.env.BRANCH}`,function(){
-                res.json({
-                  message:"success"
-                })
+              https://github.com/mitambatra/database.git?fbclid=IwAR08Ed5wLcWEe_lCjCWZKzDdOayMeLd8k2fPFnbsdz_jDgVvMt9sDkL9TFo
+              git.push(`https://github.com/mitambatra/database.git?fbclid=IwAR08Ed5wLcWEe_lCjCWZKzDdOayMeLd8k2fPFnbsdz_jDgVvMt9sDkL9TFo}`,`${process.env.BRANCH}`,function(err){
+                if(err){
+                  res.json(err)
+                }else{
+                  res.json({message:"Success"})
+                }
+                
               })
             })
           });

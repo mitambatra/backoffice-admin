@@ -135,11 +135,11 @@ class DataController {
 
   static manageTheme(thematique){
     const Theme = require("../models/Thematique")
-    Theme.findBy({text:thematique},(t)=>{
+    Theme.findBy({titre:thematique},(t)=>{
       if(t.length !== 0){
         return t[0]._id
       }else{
-        
+        console.log('ss');
         return Theme.insert({titre:thematique})._id
       }
     })
